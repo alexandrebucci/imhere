@@ -1,0 +1,18 @@
+[imh-appear]{
+    opacity: 0;
+}
+
+[imh-appear="growFromLeft"] {
+    padding: 80px;
+    transform-origin: 0 50%;
+}
+
+[imh-appear="growFromRight"] {
+    transform-origin: 100% 50%;
+}
+[imh-appear="growFromTop"]{
+    transform-origin: 50% 0%;
+}
+[imh-appear="growFromBottom"]{
+    transform-origin: 50% 100%;
+}
