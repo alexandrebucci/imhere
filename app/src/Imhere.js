@@ -1,4 +1,13 @@
-import AnimationsList from "./AnimationsList";
+// Animation classes 
+import FadeIn from "./animationsList/FadeIn";
+import FadeInDown from "./animationsList/FadeInDown";
+import FadeInLeft from "./animationsList/FadeInLeft";
+import FadeInRight from "./animationsList/FadeInRight";
+import FadeInUp from "./animationsList/FadeInUp";
+import GrowFromBottom from "./animationsList/GrowFromBottom";
+import GrowFromLeft from "./animationsList/GrowFromLeft";
+import GrowFromRight from "./animationsList/GrowFromRight";
+import GrowFromTop from "./animationsList/GrowFromTop";
 
 class ImHere {
     constructor(element) {
@@ -7,14 +16,13 @@ class ImHere {
 
         // default animation parameters
         this.defaultOffset = 0;
-        this.defaultAnimation = 'fadeIn';
+        this.defaultAnimation = 'FadeIn';
         this.defaultDuration = 0.6;
         this.defaultEasing = 'easeNone';
         this.defaultDelay = 0;
         this.defaultTx = 30;
         this.defaultTy = 30; 
-        
-        
+
         // get element and all data attributes
         this.$imhere = element;
         this.offset = parseInt(this.$imhere.getAttribute('imh-offset')) || this.defaultOffset;
@@ -26,12 +34,9 @@ class ImHere {
         this.translateY = parseInt(element.getAttribute('imh-ty')) || this.defaultTy;
     
         // array of all animation types & easing types
-        this.typesOfAppearanceArray = ['fadeIn', 'fadeInUp', 'fadeInDown', 'fadeInLeft','fadeInRight','growFromLeft','growFromRight','growFromTop','growFromBottom'];
+        this.typesOfAppearanceArray = ['FadeIn', 'FadeInUp', 'FadeInDown', 'FadeInLeft','FadeInRight','GrowFromLeft','GrowFromRight','GrowFromTop','GrowFromBottom'];
         this.typesOfEasingArray = ['easeIn','easeInOut','easeNone','easeOut'];
-    }
 
-    // check if the element is visible
-    checkVisibility(winHeight){
         // get the distance between the top of the element and the top of the window
         this.topRect = this.$imhere.getBoundingClientRect().top;
         this.top = this.topRect + this.offset;
@@ -50,13 +55,63 @@ class ImHere {
             translateY: this.translateY
         }
 
+        this.currentAnimation = this.options.animation;
+
+        this.createInstance();
+        //new ClassTest(this.options);
+        // let animation = this.options.animation;
+        // let myclass = eval("new " + animation + "(" + this.option +")");
+        // let myclass = this[animation](this.options);
+        // let test = new FadeIn(this.options);
+
+        // let test = new FadeIn(this.options);
+
+        // this.currentAnimation = new this[animation](this.options);
+        
+        // this[this.animation]()
+    }
+
+    createInstance(){
+        switch (this.currentAnimation) {
+			case "FadeIn" : 
+				this.animationInst = new FadeIn(this.options);
+				break;
+            case "FadeInDown" : 
+				this.animationInst = new FadeInDown(this.options);
+                break;
+            case "FadeInLeft" : 
+				this.animationInst = new FadeInLeft(this.options);
+                break;
+            case "FadeInRight" : 
+				this.animationInst = new FadeInRight(this.options);
+                break;
+            case "FadeInUp" : 
+				this.animationInst = new FadeInUp(this.options);
+                break;
+            case "GrowFromBottom" : 
+				this.animationInst = new GrowFromBottom(this.options);
+                break;
+            case "GrowFromLeft" : 
+				this.animationInst = new GrowFromLeft(this.options);
+                break;
+            case "GrowFromRight" : 
+				this.animationInst = new GrowFromRight(this.options);
+                break;
+            case "GrowFromTop" : 
+				this.animationInst = new GrowFromTop(this.options);
+                break;
+        }
+    }
+
+    // check if the element is visible
+    checkVisibility(winHeight){
         // watch if the element is visible
         if(!this.animated){
-            if(this.top < winHeight){
+            if(this.top < document.documentElement.scrollTop + winHeight){
                 this.$imhere.classList.add('yesImHere');
-                
+                this.animationInst.show();
                 // creation of animationsList instance
-                this.animations = new AnimationsList(this.options);
+                // this.animations = new Animation(this.options);
                 this.animated = true;
                 return;
             }

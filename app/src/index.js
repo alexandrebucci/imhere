@@ -61,6 +61,10 @@ class Main {
     
   }
 
+  resize(){
+    this.viewportHeight = window.innerHeight;
+  }
+
   // animate RAF
   animate(){
 
