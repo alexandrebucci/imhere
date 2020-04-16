@@ -3,16 +3,18 @@ import Animation from "../Animation";
 class FadeInRight extends Animation {
     constructor(options) {
         super(options);
+        this.animation = this.TweenLite.fromTo(this.$element,{opacity: 0, x: this.translateX}, {opacity: 1, x: 0, duration: this.duration, delay: this.delay, ease: this.Linear[this.easing](), paused: true});
     }
 
     show(){
-        this.TweenLite.fromTo(this.$element,{opacity: 0, x: this.translateX}, {opacity: 1, x: 0, duration: this.duration, delay: this.delay, ease: this.Linear[this.easing]()});
-    }
-
-    hide(){
-        console.log('hide() fade in right')
+        super.show();
+        this.animation.play();
     }
     
+    hide(){
+        super.hide();
+        this.animation.reverse();
+    }
 }
 
 export default FadeInRight;
